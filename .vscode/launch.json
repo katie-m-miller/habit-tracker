@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Nuxt",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--host", "127.0.0.1"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "serverReadyAction": {
+        "action": "debugWithChrome",
+        "pattern": "Local:.*(https?://[^\\s]+)",
+        "uriFormat": "%s"
+      }
+    }
+  ]
+}
