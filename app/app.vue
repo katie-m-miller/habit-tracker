@@ -9,6 +9,8 @@ const UCheckbox = resolveComponent('UCheckbox')
 const UBadge = resolveComponent('UBadge')
 const UDropdownMenu = resolveComponent('UDropdownMenu')
 
+const today = new Date()
+
 type Habit = {
   id: string
   date: string
@@ -141,11 +143,6 @@ const data = ref<Habit[]>([{
 
 const columns: TableColumn<Habit>[] = [{
   id: 'select',
-  header: ({ table }) => h(UCheckbox, {
-    'modelValue': table.getIsSomePageRowsSelected() ? 'indeterminate' : table.getIsAllPageRowsSelected(),
-    'onUpdate:modelValue': (value: boolean | 'indeterminate') => table.toggleAllPageRowsSelected(!!value),
-    'aria-label': 'Select all'
-  }),
   cell: ({ row }) => h(UCheckbox, {
     'modelValue': row.getIsSelected(),
     'onUpdate:modelValue': (value: boolean | 'indeterminate') => row.toggleSelected(!!value),
@@ -263,9 +260,22 @@ const table = useTemplateRef('table')
 function randomize() {
   data.value = [...data.value].sort(() => Math.random() - 0.5)
 }
+
+// Expects a 1-based month number (1 = January, 12 = December)
+function getMonthName(monthNumber: number, locale = 'en-US') {
+  // Use day 1 to avoid end-of-month rollover bugs (e.g., Feb 30 rolling into March)
+  const date = new Date(2000, monthNumber - 1, 1);
+  return date.toLocaleString(locale, { month: 'long' });
+}
+
+const headerTitle: string = computed(() => `${getMonthName(today.getMonth() + 1)} ${today.getFullYear()}`)
 </script>
 
 <template>
+    <UPageHeader
+    headline="Habit Tracker"
+    :title="headerTitle"
+  />
   <div class="flex-1 divide-y divide-accented w-full">
     <div class="flex items-center gap-2 px-4 py-3.5 overflow-x-auto">
       <UInput
