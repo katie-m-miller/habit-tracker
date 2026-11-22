@@ -3,15 +3,20 @@
     "private": true,
     "type": "module",
     "scripts": {
-      "build": "nuxt build",
-      "dev": "nuxt dev",
-      "generate": "nuxt generate",
-      "preview": "nuxt preview",
-      "postinstall": "nuxt prepare"
+        "build": "nuxt build",
+        "dev": "nuxt dev",
+        "generate": "nuxt generate",
+        "preview": "nuxt preview",
+        "postinstall": "nuxt prepare"
     },
     "dependencies": {
-      "nuxt": "latest",
-      "vue": "latest",
-      "vue-router": "latest"
+        "@nuxt/ui": "^4.13.0",
+        "@vueuse/core": "latest",
+        "nuxt": "latest",
+        "vue": "latest",
+        "vue-router": "latest"
+    },
+    "devDependencies": {
+        "@nuxtjs/color-mode": "^4.1.0"
     }
-  }
+}
